@@ -19,4 +19,5 @@ public class GymTeam {
     private Integer id;
     private Integer gymNumber; //Hauré de mirar si ho puc limitar d'alguna manera
     private List<Pokemon> team;
+    Set<Pokemon> amb els 4 moviments que s'esculli.
 }*/

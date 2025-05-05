@@ -1,4 +1,4 @@
-package com.pokemonmanager.backend.domain;
+package com.backend.backend.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
