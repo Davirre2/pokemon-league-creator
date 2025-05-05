@@ -1,4 +1,4 @@
-package com.gymteams.demo;
+package com.pokemonmanager.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
