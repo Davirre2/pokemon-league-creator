@@ -1,10 +1,7 @@
 package com.pokemonmanager.backend.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -14,6 +11,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Pokemon {
     @Id
     private Integer id;
@@ -32,7 +31,7 @@ public class Pokemon {
     @ElementCollection
     @CollectionTable(name = "pokemon_abilities", joinColumns = @JoinColumn(name = "pokemon_id"))
     @Column(name = "ability_name")
-    private List<String> ability;
+    private List<String> abilities;
 
     @ManyToMany
     @JoinTable(

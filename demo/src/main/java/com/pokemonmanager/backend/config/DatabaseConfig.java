@@ -1,4 +1,4 @@
-package com.pokemonmanager.backend.config;
+/*package com.pokemonmanager.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,4 +13,4 @@ public class DatabaseConfig {
     public JdbcTemplate jdbcTemplate(final DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
-}
+}*/

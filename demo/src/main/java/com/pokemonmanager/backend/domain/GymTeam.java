@@ -1,6 +1,7 @@
-package com.pokemonmanager.backend.domain;
+/*package com.pokemonmanager.backend.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class GymTeam {
+    @Id
     private Integer id;
     private Integer gymNumber; //Hauré de mirar si ho puc limitar d'alguna manera
     private List<Pokemon> team;
-}
+}*/
