@@ -18,9 +18,17 @@ public class PokemonController {
     public List<Pokemon> getAllPokemons() {
         System.out.println("Aquí dins");
         return pokemonRepository.findAll();
-                //.stream()
-                //.map(Pokemon::getName)
-                //.toList();
+    }
+
+    @GetMapping(value = "/pokemons/type={type}")
+    public List<Pokemon> getAllPokemonsByType(@PathVariable String type) {
+        return pokemonRepository.findAll().stream()
+                .filter(pokemon -> {
+                    List<String> types = pokemon.getTypes();
+                    return (!types.isEmpty() && types.get(0).equalsIgnoreCase(type)) ||
+                            (types.size() > 1 && types.get(1).equalsIgnoreCase(type));
+                })
+                .toList();
     }
 
 }
