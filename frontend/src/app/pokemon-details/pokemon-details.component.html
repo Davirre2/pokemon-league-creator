@@ -1,0 +1,44 @@
+<div class="pokemon-details-container">
+  <!-- Imatge del Pokémon -->
+  <div class="pokemon-image">
+    <img [src]="pokemon?.imageUrl" alt="{{ pokemon?.name }}" />
+  </div>
+
+  <!-- Informació del Pokémon -->
+  <div class="pokemon-info">
+    <ul>
+      <li><strong>Name:</strong> {{ pokemon?.name }}</li>
+      <li><strong>Dex Number:</strong> {{ pokemon?.dexNumber }}</li>
+      <li><strong>Type(s):</strong>
+        <div class="pokemon-types">
+          <div *ngFor="let type of pokemon?.types" class="icon" [ngClass]="type.toLowerCase()">
+            <img [src]="typeIconMap[type.toLowerCase()]" [alt]="type" (error)="onImageError(type)" />
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Taula de moviments -->
+<div class="pokemon-moves">
+  <h3>Moves</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Move</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let move of pokemon?.moves">
+        <td>{{ move.name }}</td>
+        <td>
+          <div class="icon" [ngClass]="move.type.toLowerCase()">
+            <img [src]="typeIconMap[move.type.toLowerCase()]" [alt]="move.type" (error)="onImageError(move.type)" />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

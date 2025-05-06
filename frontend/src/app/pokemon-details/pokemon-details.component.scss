@@ -1,0 +1,95 @@
+.pokemon-details-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px; /* Augmenta l'espai entre la imatge i el text */
+  margin-bottom: 20px;
+}
+
+.pokemon-image img {
+  width: 200px; /* Augmenta la mida de la imatge */
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+}
+
+.pokemon-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra el text verticalment */
+  text-align: center; /* Centra el text horitzontalment */
+}
+
+.pokemon-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pokemon-info li {
+  margin-bottom: 20px; /* Augmenta l'espai entre els elements */
+  font-size: 18px; /* Augmenta la mida del text */
+  font-weight: bold;
+}
+
+.pokemon-types {
+  display: flex;
+  justify-content: center; /* Centra les icones */
+  gap: 10px;
+  margin-bottom: 30px;
+  margin-top: 10px; /* Afegeix espai entre el text "Type(s)" i les icones */
+}
+
+.icon {
+  border-radius: 100%;
+  height: 40px; /* Augmenta la mida de les icones */
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 200ms all;
+}
+
+.icon img {
+  height: 70%; /* Ajusta la mida de la imatge dins de la icona */
+  width: 70%;
+}
+
+.pokemon-moves {
+  margin-top: 20px;
+  flex-grow: 1; /* Permet que la taula ocupi l'espai restant */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Evita que el contingut surti del contenidor */
+}
+
+.pokemon-moves table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  flex-grow: 1; /* Permet que la taula s'estiri */
+}
+
+.pokemon-moves th,
+.pokemon-moves td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.pokemon-moves tbody {
+  display: block;
+  overflow-y: auto; /* Fa que només el cos de la taula sigui scrollejable */
+  height: 100%; /* Fa que el cos de la taula ompli l'espai restant */
+}
+
+.pokemon-moves thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.pokemon-moves tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}

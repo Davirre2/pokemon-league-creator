@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200/pokemons")
 @RestController
@@ -36,6 +37,11 @@ public class PokemonController {
         return pokemonRepository.findAll().stream()
                 .filter(pokemon -> pokemon.getGeneration().equals(generation))
                 .toList();
+    }
+    
+    @GetMapping(value = "/pokemons/{id}")
+    public Optional<Pokemon> getPokemonById(@PathVariable int id){
+        return pokemonRepository.findById(id);
     }
 
 }
