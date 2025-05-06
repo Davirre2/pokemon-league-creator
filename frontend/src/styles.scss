@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.css */
+body {
+    background-color: #f0f0f0; /* Un gris clar modern */
+    /* Altres estils globals que puguis tenir */
+  }
+  
+  /* O si vols aplicar-ho a l'element app-root */
+  app-root {
+    display: block; /* Assegura que ocupi tota l'amplada */
+    background-color: #f0f0f0; /* Un gris clar modern */
+    min-height: 100vh; /* Ocupa almenys tota l'alçada de la finestra */
+  }

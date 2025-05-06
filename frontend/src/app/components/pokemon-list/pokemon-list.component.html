@@ -1,13 +1,10 @@
-<h2>Llista de Pokémons</h2>
-
-<div *ngIf="pokemons && pokemons.length > 0; else noData">
-  <div *ngFor="let p of pokemons" class="pokemon-card">
-    <h3>{{ p.name }} (#{{ p.dexNumber }})</h3>
-    <img [src]="p.imageUrl" [alt]="p.name" width="150" />
+<div *ngIf="pokemons && pokemons.length > 0; else noData" class="pokemon-list-container">
+    <div *ngFor="let p of pokemons" class="pokemon-card">
+      <img [src]="p.imageUrl" [alt]="p.name" width="150" />
+      <h3>{{ p.name }} (#{{ p.dexNumber }})</h3>
+    </div>
   </div>
-</div>
-
-<ng-template #noData>
-  <p>No s'han trobat pokémons.</p>
-</ng-template>
-
+  
+  <ng-template #noData>
+    <p>Carregant</p>
+  </ng-template>
