@@ -31,4 +31,11 @@ public class PokemonController {
                 .toList();
     }
 
+    @GetMapping(value = "/pokemons/generation={generation}")
+    public List<Pokemon> getAllPokemonsByGeneration(@PathVariable int generation){
+        return pokemonRepository.findAll().stream()
+                .filter(pokemon -> pokemon.getGeneration().equals(generation))
+                .toList();
+    }
+
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Pokemon } from '../../models/pokemon.model';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -42,9 +43,23 @@ export class PokemonListComponent implements OnInit {
     console.error(`Ruta generada: ${this.typeIconMap[type.toLowerCase()]}`);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: { [key: string]: any; }) => {
+      const type = params['type'];
+      const generation = params['generation'];
+      if (type) {
+        this.fetchPokemonsByType(type);
+      } else if (generation){
+        this.fetchPokemonsByGeneration(generation);
+      } else {
+        this.fetchAllPokemons();
+      }
+    });
+  }
+
+  fetchAllPokemons(): void {
     this.http.get<Pokemon[]>(`${this.apiUrl}/pokemons`).subscribe({
       next: data => {
         this.pokemons = data;
@@ -54,4 +69,24 @@ export class PokemonListComponent implements OnInit {
       }
     });
   }
+  fetchPokemonsByType(type: string): void {
+    this.http.get<Pokemon[]>(`${this.apiUrl}/pokemons/type=${type}`).subscribe({
+      next: data => {
+        this.pokemons = data;
+      },
+      error: err => {
+        console.error('Error carregant pokémons', err);
+      }
+    });
+  }
+  fetchPokemonsByGeneration(generation: string): void {
+    this.http.get<Pokemon[]>(`${this.apiUrl}/pokemons/generation=${generation}`).subscribe({
+      next: data => {
+        this.pokemons = data;
+      },
+      error: err => {
+        console.error('Error carregant pokémons', err);
+      }
+    });
+}
 }

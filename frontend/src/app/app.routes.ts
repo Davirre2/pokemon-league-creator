@@ -10,6 +10,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: MainLayoutComponent }, // Root route can be empty or have a dedicated component
       { path: 'pokemons', component: PokemonListComponent },
+      { path: 'pokemons/type/:type', component:PokemonListComponent},
+      { path: 'pokemons/generation/:generation', component: PokemonListComponent },
     ],
   },
 ];
