@@ -21,6 +21,7 @@ public class PokemonDataImporter {
     private final MoveRepository moveRepository;
 
     public void importData(String... args) throws Exception {
+        System.out.println("Importació començada.");
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode root = objectMapper.readTree(new File("src/main/resources/pokemons.json"));
 
@@ -45,6 +46,7 @@ public class PokemonDataImporter {
             for (JsonNode habilitat : node.get("habilitats")) {
                 habilitatsList.add(habilitat.get("nom").asText());
             }
+            habilitatsList = habilitatsList.stream().distinct().toList();
             pokemon.setAbilities(habilitatsList);
 
             // Moviments

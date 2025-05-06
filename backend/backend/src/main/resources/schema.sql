@@ -1,5 +1,3 @@
-CREATE DATABASE pokemon_db;
-
 DROP TABLE IF EXISTS pokemon_moves;
 DROP TABLE IF EXISTS pokemon_abilities;
 DROP TABLE IF EXISTS pokemon_types;

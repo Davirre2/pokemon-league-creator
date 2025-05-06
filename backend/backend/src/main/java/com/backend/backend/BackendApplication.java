@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackendApplication{
+public class BackendApplication implements CommandLineRunner {
 
 	@Autowired
 	private PokemonDataImporter dataImporter;
@@ -16,9 +16,9 @@ public class BackendApplication{
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	/*@Override
+	@Override
 	public void run(String... args) throws Exception {
 		dataImporter.importData("src/main/resources/pokemons.json");
-	}*/
+	}
 
 }
