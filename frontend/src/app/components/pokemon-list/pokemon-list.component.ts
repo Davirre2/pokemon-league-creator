@@ -21,7 +21,6 @@ export class PokemonListComponent implements OnInit {
     this.http.get<Pokemon[]>(`${this.apiUrl}/pokemons`).subscribe({
       next: data => {
         this.pokemons = data;
-        console.debug(this.pokemons[0]);
       },
       error: err => {
         console.error('Error carregant pokémons', err);
