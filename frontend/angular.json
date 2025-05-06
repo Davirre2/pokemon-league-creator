@@ -96,10 +96,13 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/favicon.ico",
+              "src/assets/icons"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/type-icons.css"
             ],
             "scripts": []
           }

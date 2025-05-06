@@ -2,6 +2,11 @@
     <div *ngFor="let p of pokemons" class="pokemon-card">
       <img [src]="p.imageUrl" [alt]="p.name" width="150" />
       <h3>{{ p.name }} (#{{ p.dexNumber }})</h3>
+      <div class="pokemon-types">
+        <div *ngFor="let type of p.types" class="icon" [ngClass]="type.toLowerCase()">
+          <img [src]="typeIconMap[type.toLowerCase()]" [alt]="type" (error)="onImageError(type)"/>
+        </div>
+      </div>
     </div>
   </div>
   

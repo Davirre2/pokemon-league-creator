@@ -1,0 +1,183 @@
+html body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1rem;
+    background: #effdff;
+}
+
+h1 {
+    text-align: center;
+    margin: 2em;
+    color: #333;
+}
+
+.wrapper {
+    width: 800px;
+    margin: auto auto;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(6, 1fr);
+    align-content: center;
+    align-items: center;
+}
+
+.icon {
+    border-radius: 100%;
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    transition: 200ms all;
+}
+
+.icon:hover {
+    filter: saturate(200%);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.icon img {
+    height: 60%;
+    width: 60%;
+    margin: 20%;
+}
+
+html body {
+    margin: 0 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    font-size: 1rem !important;
+    background: #effdff !important;
+}
+
+h1 {
+    text-align: center !important;
+    margin: 2em !important;
+    color: #333 !important;
+}
+
+.wrapper {
+    width: 800px !important;
+    margin: auto auto !important;
+    display: grid !important;
+    grid-gap: 20px !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    align-content: center !important;
+    align-items: center !important;
+}
+
+.icon {
+    border-radius: 50% !important;
+    height: 48px !important;
+    width: 48px !important;
+    margin: auto !important;
+    transition: 200ms all !important;
+}
+
+.icon:hover {
+    filter: saturate(200%) !important;
+    transform: scale(1.1) !important;
+    cursor: pointer !important;
+}
+
+.icon img {
+    height: 70% !important;
+    width: 70% !important;
+    margin: 20% !important;
+}
+
+app-root .bug {
+    background: #92BC2C !important;
+    box-shadow: 0 0 20px #92BC2C !important;
+}
+
+.dark {
+    background: #595761 !important;
+    box-shadow: 0 0 20px #595761 !important;
+}
+
+.dragon {
+    background: #0C69C8 !important;
+    box-shadow: 0 0 20px #0C69C8 !important;
+}
+
+.electric {
+    background: #F2D94E !important;
+    box-shadow: 0 0 20px #F2D94E !important;
+}
+
+.fire {
+    background: #FBA54C !important;
+    box-shadow: 0 0 20px #FBA54C !important;
+}
+
+.fairy {
+    background: #EE90E6 !important;
+    box-shadow: 0 0 20px #EE90E6 !important;
+}
+
+.fighting {
+    background: #D3425F !important;
+    box-shadow: 0 0 20px #D3425F !important;
+}
+
+.flying {
+    background: #A1BBEC !important;
+    box-shadow: 0 0 20px #A1BBEC !important;
+}
+
+.ghost {
+    background: #5F6DBC !important;
+    box-shadow: 0 0 20px #5F6DBC !important;
+}
+
+.grass {
+    background: #5FBD58 !important;
+    box-shadow: 0 0 20px #5FBD58 !important;
+}
+
+.ground {
+    background: #DA7C4D !important;
+    box-shadow: 0 0 20px #DA7C4D !important;
+}
+
+.ice {
+    background: #75D0C1 !important;
+    box-shadow: 0 0 20px #75D0C1 !important;
+}
+
+.normal {
+    background: #A0A29F !important;
+    box-shadow: 0 0 20px #A0A29F !important;
+}
+
+.poison {
+    background: #B763CF !important;
+    box-shadow: 0 0 20px #B763CF !important;
+}
+
+.psychic {
+    background: #FA8581 !important;
+    box-shadow: 0 0 20px #FA8581 !important;
+}
+
+.rock {
+    background: #C9BB8A !important;
+    box-shadow: 0 0 20px #C9BB8A !important;
+}
+
+.steel {
+    background: #5695A3 !important;
+    box-shadow: 0 0 20px #5695A3 !important;
+}
+
+.water {
+    background: #539DDF !important;
+    box-shadow: 0 0 20px #539DDF !important;
+}
