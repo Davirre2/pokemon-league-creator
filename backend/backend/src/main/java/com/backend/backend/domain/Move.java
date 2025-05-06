@@ -18,7 +18,7 @@ public class Move {
     private String name;
     private String type;
 
-    @ManyToMany(mappedBy = "moves")
-    private Set<Pokemon> pokemons;
+    //@ManyToMany(mappedBy = "moves")
+    //private Set<Pokemon> pokemons;
 
 }
