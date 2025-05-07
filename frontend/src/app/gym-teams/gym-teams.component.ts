@@ -6,11 +6,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Move } from '../models/move.models';
 import { PokemonService } from '../services/pokemon.service';
+import { PokemonLearnset } from '../models/pokemon-learnset.model';
+import { AVAILABLE_TYPES, AVAILABLE_GYM_NUMBERS, typeIconMap } from '../../constants';
+
 
 @Component({
   selector: 'app-gym-teams',
   templateUrl: './gym-teams.component.html',
-  styleUrls: ['./gym-teams.component.scss'],
+  styleUrls: ['./gym-teams.component.scss', '../../type-icons.css'],
   standalone: true,
   imports: [HttpClientModule, CommonModule, FormsModule],
 })
@@ -22,14 +25,14 @@ export class GymTeamsComponent implements OnInit {
   selectedPokemon: any = null; 
   selectedGymNumber: number | null = null;
   selectedMoves: Move[] = [];
-  availableTypes: string[] = [
-    'Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison',
-    'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'
-  ];
+  selectedPokemons: PokemonLearnset[] = [];
+  availableTypes = AVAILABLE_TYPES;
+  availableGymNumbers = AVAILABLE_GYM_NUMBERS;
+  typeIconMap = typeIconMap;  
   availablePokemons: any[] = []; 
   availableMoves: Move[] = []; 
+  acePokemon: string = '';
 
-  availableGymNumbers: number[] = Array.from({ length: 18 }, (_, i) => i + 1);
 
   constructor(private gymTeamService: GymTeamService, private pokemonService: PokemonService) {}
 
@@ -75,6 +78,16 @@ export class GymTeamsComponent implements OnInit {
     this.loadAvailablePokemons();
   }
 
+  selectAcePokemon(pokemon: any | false): void {
+    if (pokemon) {
+      this.acePokemon = pokemon.name;
+    } else {
+      this.selectedPokemon = null;
+      this.step = 2;
+    }
+  }
+
+
   loadAvailablePokemons(): void {
     this.pokemonService.getPokemonsByType(this.selectedType).subscribe({
       next: (data) => {
@@ -93,6 +106,11 @@ export class GymTeamsComponent implements OnInit {
         console.error('Error carregant pokémons', err);
       },
     });
+  }
+
+  onImageError(type: string): void {
+    console.error(`Error carregant la imatge del tipus: ${type}`);
+    console.error(`Ruta generada: ${this.typeIconMap[type.toLowerCase()]}`);
   }
 
   selectPokemon(pokemon: any): void {
@@ -121,18 +139,44 @@ export class GymTeamsComponent implements OnInit {
     }
   }
 
+  addAnotherPokemon(): void {
+    this.selectedPokemons.push(
+      {
+        pokemon: this.selectedPokemon,
+        moves: this.selectedMoves,
+      }
+    );
+    this.selectedPokemon = null;
+    this.selectedMoves = [];
+    this.step = 2;
+  }
+
+  deleteGym(num: number): void {
+    this.gymTeamService.deleteGymTeam(num).subscribe({
+      next: (response) => {
+        console.log('Gimnàs eliminat correctament', response);
+        this.loadGymTeams();
+      },
+      error: (err) => {
+        console.error('Error eliminant gimnàs', err);
+      },
+    });
+  }
+
   finalizeGym(): void {
+    this.selectedPokemons.push(
+      {
+        pokemon: this.selectedPokemon,
+        moves: this.selectedMoves,
+      }
+    )
+    if(this.acePokemon == '') this.acePokemon = this.selectedPokemons[0].pokemon.name;
     this.step = 1;
     const newGymTeam: GymTeam = {
       gymNumber: this.selectedGymNumber ?? 0,
-      pokemons: [
-        {
-          pokemon: this.selectedPokemon,
-          moves: this.selectedMoves,
-        },
-      ],
+      pokemons: this.selectedPokemons,
       gymType: this.selectedType,
-      acePokemon: this.selectedPokemon.name,
+      acePokemon: this.acePokemon,
     };
 
     this.gymTeamService.addGymTeam(newGymTeam).subscribe({
@@ -152,6 +196,7 @@ export class GymTeamsComponent implements OnInit {
     this.selectedType = '';
     this.selectedPokemon = null;
     this.selectedMoves = [];
+    this.acePokemon = '';
     this.showAddGymForm = false; // Opcional: Tanca el formulari si cal
   }
 }

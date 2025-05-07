@@ -20,4 +20,9 @@ export class GymTeamService {
   addGymTeam(gymTeam: GymTeam): Observable<GymTeam> {
     return this.http.post<GymTeam>(this.apiUrl, gymTeam);
   }
+
+  deleteGymTeam(gymTeamId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${gymTeamId}`);
+  }
+
 }

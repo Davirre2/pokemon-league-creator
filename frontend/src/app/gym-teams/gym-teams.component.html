@@ -1,26 +1,32 @@
 <div>
     <h2>Llista de Gimnasos</h2>
     <ul>
-      <li *ngFor="let team of gymTeams">
-        <strong>Número:</strong> {{ team.gymNumber }} <br />
-        <strong>Tipus:</strong> {{ team.gymType || 'Sense tipus' }} <br />
-        <strong>Pokémon Principal:</strong> {{ team.acePokemon || 'Sense Pokémon' }} <br />
-        <strong>Pokémons:</strong>
-        <ul>
+        <li *ngFor="let team of gymTeams" [ngClass]="team.gymType.toLowerCase()" class="gym-team-card">
+          <strong>Número:</strong> {{ team.gymNumber }} <br />
+          <strong>Tipus:</strong>
+          <div class="pokemon-types">
+            <div class="icon" [ngClass]="team.gymType.toLowerCase()">
+              <img [src]="typeIconMap[team.gymType.toLowerCase()]" [alt]="team.gymType" (error)="onImageError(team.gymType)" />
+            </div>
+          </div>
+          <strong>Pokémon Principal:</strong> {{ team.acePokemon || 'Sense Pokémon' }} <br />
+          <strong>Pokémons:</strong>
+          <ul>
             <li *ngFor="let pokemon of team.pokemons">
-                {{ pokemon.pokemon.name || 'Sense nom' }} - Moviments:
-                <div *ngIf="pokemon.moves && pokemon.moves.length > 0" style="display: flex; gap: 8px; margin-top: 8px;">
-                  <div *ngFor="let move of pokemon.moves" style="border: 1px solid #ccc; padding: 8px; border-radius: 4px; text-align: center;">
-                    {{ move.name }}
-                  </div>
+              {{ pokemon.pokemon.name || 'Sense nom' }} - Moviments:
+              <div *ngIf="pokemon.moves && pokemon.moves.length > 0" class="moves-container">
+                <div *ngFor="let move of pokemon.moves" class="move-box">
+                  {{ move.name }}
                 </div>
-                <div *ngIf="!pokemon.moves || pokemon.moves.length === 0">
-                  Sense moviments
-                </div>
-              </li>
-        </ul>
-      </li>
-    </ul>
+              </div>
+              <div *ngIf="!pokemon.moves || pokemon.moves.length === 0">
+                Sense moviments
+              </div>
+            </li>
+          </ul>
+          <button class="delete-gym-button" (click)="deleteGym(team.gymNumber)">Eliminar Gimnàs</button>
+        </li>
+      </ul>
   
     <button (click)="toggleAddGymForm()">
       {{ showAddGymForm ? 'Tanca Formulari' : 'Afegir Gimnàs' }}
@@ -55,9 +61,15 @@
           {{ pokemon.name }}
         </button>
       </div>
+
+      <div *ngIf="step === 3 &&  acePokemon===''">
+        <h4> Vols que aquest sigui el Pokémon principal?</h4>
+        <button (click)="selectAcePokemon(selectedPokemon)">Sí</button>
+        <button (click)="selectAcePokemon(false)">No</button>
+      </div> 
   
       <!-- Pas 3: Selecciona fins a 4 moviments -->
-      <div *ngIf="step === 3">
+      <div *ngIf="step === 3 && acePokemon !== ''">
         <h4>Pas 3: Selecciona fins a 4 moviments</h4>
         <div>
           <h5>Moviments disponibles:</h5>
@@ -74,6 +86,8 @@
             </li>
           </ul>
         </div>
+        <button [disabled]="selectedMoves.length > 4 || selectedMoves.length == 0" (click)="addAnotherPokemon()">Afegir un altre pokemon</button>
+          
         <button [disabled]="selectedMoves.length > 4 || selectedMoves.length == 0" (click)="finalizeGym()">Finalitzar Gimnàs</button>
       </div>
     </div>
