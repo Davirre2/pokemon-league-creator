@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Move } from '../models/move.models';
+import { PokemonService } from '../services/pokemon.service';
 
 @Component({
   selector: 'app-gym-teams',
@@ -26,20 +27,11 @@ export class GymTeamsComponent implements OnInit {
     'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'
   ];
   availablePokemons: any[] = []; 
-  availableMoves: string[] = []; 
-  allMoves: Move[] = [
-    { name: 'Thunderbolt', type: 'Electric' },
-    { name: 'Quick Attack', type: 'Normal' },
-    { name: 'Iron Tail', type: 'Steel' },
-    { name: 'Electro Ball', type: 'Electric' },
-    { name: 'Flamethrower', type: 'Fire' },
-    { name: 'Fly', type: 'Flying' },
-    { name: 'Dragon Claw', type: 'Dragon' },
-    { name: 'Heat Wave', type: 'Fire' },
-  ];
+  availableMoves: Move[] = []; 
+
   availableGymNumbers: number[] = Array.from({ length: 18 }, (_, i) => i + 1);
 
-  constructor(private gymTeamService: GymTeamService) {}
+  constructor(private gymTeamService: GymTeamService, private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
     this.loadGymTeams();
@@ -83,19 +75,26 @@ export class GymTeamsComponent implements OnInit {
   }
 
   loadAvailablePokemons(): void {
-    // Exemple: this.pokemonService.getAllPokemons().subscribe(...)
-    this.availablePokemons = [
-      { name: 'Pikachu', moves: this.allMoves },
-      { name: 'Charizard', moves: this.allMoves },
-      { name: 'Bulbasaur', moves: this.allMoves },
-      { name: 'Squirtle', moves: this.allMoves },
-    ]
+    this.pokemonService.getPokemonsByType(this.selectedType).subscribe({
+      next: (data) => {
+        this.availablePokemons = data.map((pokemon: any) => ({
+          name: pokemon.name,
+          moves: pokemon.moves,
+        }));
+      },
+      error: (err) => {
+        console.error('Error carregant pokémons', err);
+      },
+    });
   }
 
   selectPokemon(pokemon: any): void {
-    this.selectedPokemon = pokemon;
-    this.availableMoves = pokemon.moves; // Carrega els moviments del Pokémon seleccionat
-    this.step = 3; // Passa al pas 3
+    this.selectedPokemon = pokemon; // Assigna el Pokémon seleccionat
+    this.availableMoves = pokemon.moves.map((move: any) => ({
+      name: move.name,
+      type: move.type, 
+    }));
+    this.step = 3;
   }
 
   selectMove(move: Move): void {
@@ -125,7 +124,7 @@ export class GymTeamsComponent implements OnInit {
           learnset: this.selectedMoves,
         },
       ],
-      type: this.selectedType,
+      gymType: this.selectedType,
       acePokemon: this.selectedPokemon.name,
     };
     console.log("acePokemon", this.selectedPokemon.name);

@@ -3,7 +3,7 @@
     <ul>
       <li *ngFor="let team of gymTeams">
         <strong>Número:</strong> {{ team.gymNumber }} <br />
-        <strong>Tipus:</strong> {{ team.type || 'Sense tipus' }} <br />
+        <strong>Tipus:</strong> {{ team.gymType || 'Sense tipus' }} <br />
         <strong>Pokémon Principal:</strong> {{ team.acePokemon || 'Sense Pokémon' }} <br />
         <strong>Pokémons:</strong>
         <ul>
@@ -53,7 +53,7 @@
         <h4>Pas 3: Selecciona fins a 4 moviments</h4>
         <div>
           <h5>Moviments disponibles:</h5>
-          <button *ngFor="let move of allMoves" (click)="selectMove(move)">
+          <button *ngFor="let move of availableMoves" (click)="selectMove(move)">
             {{ move.name }}
           </button>
         </div>
