@@ -4,6 +4,8 @@ import com.backend.backend.domain.GymTeam;
 import com.backend.backend.domain.Pokemon;
 import com.backend.backend.domain.PokemonLearnset;
 import com.backend.backend.utils.GymTeamRepository;
+import com.backend.backend.utils.MoveRepository;
+import com.backend.backend.domain.Move;
 import com.backend.backend.utils.PokemonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,9 @@ public class PokemonController {
 
     @Autowired
     private GymTeamRepository gymTeamRepository;
+
+    @Autowired
+    private MoveRepository moveRepository;
 
     @GetMapping(value = "/pokemons")
     public List<Pokemon> getAllPokemons() {
@@ -57,8 +62,19 @@ public class PokemonController {
 
     @PostMapping(value = "/gymteams")
     public void createGymTeam(@RequestBody GymTeam gymTeam){
-        PokemonLearnset pSet = gymTeam.getPokemons().get(0);
-        System.out.println(pSet.getPokemonId());
+
+        gymTeam.getPokemons().forEach(pokemonLearnset -> {
+            pokemonLearnset.getMoves().forEach(move -> {
+                Move existingMove = moveRepository.findByName(move.getName()).orElse(null);
+                if (existingMove != null) {
+                    move.setId(existingMove.getId());
+                    move.setType(existingMove.getType());
+                    move.setName(existingMove.getName());
+                } else {
+                    moveRepository.save(move); // Guarda només si no existeix
+                }
+            });
+        });
         gymTeamRepository.save(gymTeam);
     }
 

@@ -20,7 +20,7 @@ export class GymTeamsComponent implements OnInit {
   step: number = 1;
   selectedType: string = ''; 
   selectedPokemon: any = null; 
-  selectedGymNumber: number = 0;
+  selectedGymNumber: number | null = null;
   selectedMoves: Move[] = [];
   availableTypes: string[] = [
     'Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison',
@@ -53,6 +53,7 @@ export class GymTeamsComponent implements OnInit {
     this.selectedType = '';
     this.selectedPokemon = null;
     this.selectedMoves = [];
+    this.selectedGymNumber = 0;
   }
 
   selectGymNumber(gymNumber: number): void {
@@ -95,7 +96,7 @@ export class GymTeamsComponent implements OnInit {
   }
 
   selectPokemon(pokemon: any): void {
-    this.selectedPokemon = pokemon; // Assigna el Pokémon seleccionat
+    this.selectedPokemon = pokemon;
     this.availableMoves = pokemon.moves.map((move: any) => ({
       name: move.name,
       type: move.type, 
@@ -123,28 +124,34 @@ export class GymTeamsComponent implements OnInit {
   finalizeGym(): void {
     this.step = 1;
     const newGymTeam: GymTeam = {
-      gymNumber: this.selectedGymNumber,
+      gymNumber: this.selectedGymNumber ?? 0,
       pokemons: [
         {
           pokemon: this.selectedPokemon,
-          learnset: this.selectedMoves,
+          moves: this.selectedMoves,
         },
       ],
       gymType: this.selectedType,
       acePokemon: this.selectedPokemon.name,
     };
-    console.log("ID", this.selectedPokemon.id);
-
 
     this.gymTeamService.addGymTeam(newGymTeam).subscribe({
       next: (response) => {
         console.log('Gimnàs creat correctament', response);
-        this.loadGymTeams(); // Actualitza la llista de gimnasos
-        this.step = 1; // Reinicia el procés
+        this.loadGymTeams();
+        this.resetGymCreation(); // Reinicia el formulari després de crear el gimnàs
       },
       error: (err) => {
         console.error('Error creant gimnàs', err);
       },
     });
+  }
+  resetGymCreation(): void {
+    this.step = 1;
+    this.selectedGymNumber = null;
+    this.selectedType = '';
+    this.selectedPokemon = null;
+    this.selectedMoves = [];
+    this.showAddGymForm = false; // Opcional: Tanca el formulari si cal
   }
 }

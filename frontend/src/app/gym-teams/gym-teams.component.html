@@ -7,9 +7,17 @@
         <strong>Pokémon Principal:</strong> {{ team.acePokemon || 'Sense Pokémon' }} <br />
         <strong>Pokémons:</strong>
         <ul>
-          <li *ngFor="let pokemon of team.pokemons">
-            {{ pokemon.pokemon.name || 'Sense nom' }} - Moviments: {{ pokemon.learnset.join(', ') }}
-          </li>
+            <li *ngFor="let pokemon of team.pokemons">
+                {{ pokemon.pokemon.name || 'Sense nom' }} - Moviments:
+                <div *ngIf="pokemon.moves && pokemon.moves.length > 0" style="display: flex; gap: 8px; margin-top: 8px;">
+                  <div *ngFor="let move of pokemon.moves" style="border: 1px solid #ccc; padding: 8px; border-radius: 4px; text-align: center;">
+                    {{ move.name }}
+                  </div>
+                </div>
+                <div *ngIf="!pokemon.moves || pokemon.moves.length === 0">
+                  Sense moviments
+                </div>
+              </li>
         </ul>
       </li>
     </ul>
