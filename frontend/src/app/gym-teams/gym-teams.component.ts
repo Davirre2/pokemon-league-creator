@@ -15,7 +15,7 @@ import { AVAILABLE_TYPES, AVAILABLE_GYM_NUMBERS, typeIconMap } from '../../const
   templateUrl: './gym-teams.component.html',
   styleUrls: ['./gym-teams.component.scss', '../../type-icons.css', './styles/gym-team-card.scss', 
     './styles/gym-image.scss', './styles/gym-grid.scss', './styles/gym-move-box.scss', './styles/gym-move-buttons.scss'
-    ,
+    ,'./styles/gym-pokemon-grid.scss',
   ],
   standalone: true,
   imports: [HttpClientModule, CommonModule, FormsModule],
@@ -42,6 +42,8 @@ export class GymTeamsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadGymTeams();
+    this.selectedGymNumber = null;
+    this.selectedGym = null;
   }
 
   loadGymTeams(): void {
@@ -93,11 +95,14 @@ export class GymTeamsComponent implements OnInit {
 
   backToGrid(): void {
     this.selectedGymNumber = null;
+    this.selectedGym = null;
   }
 
   viewGymDetails(gymNumber: number): void {
     this.selectedGymNumber = gymNumber;
-    this.selectedGym = this.gymTeams.find(gym => gym.gymNumber === gymNumber);
+    this.selectedGym = this.gymTeams.find(gym => gym.gymNumber === gymNumber) || null;
+    console.log('Gym seleccionat:', this.selectedGym);
+    console.log('Gym Number seleccionat:', this.selectedGymNumber);
   }
 
     
@@ -160,7 +165,7 @@ export class GymTeamsComponent implements OnInit {
 
   openAddGymForm(): void {
     this.showAddGymForm = true;
-    this.selectedGymNumber = null; // Reinicia la selecció
+    //this.selectedGymNumber = null; // Reinicia la selecció
   }
 
   addAnotherPokemon(): void {

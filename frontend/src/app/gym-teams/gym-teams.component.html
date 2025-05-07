@@ -25,41 +25,47 @@
   
     <!-- Detalls del gimnàs seleccionat -->
     <div *ngIf="selectedGymNumber" class="gym-details">
-      <button (click)="backToGrid()">Torna a la graella</button>
-  
-      <!-- Si el gimnàs existeix -->
-      <div *ngIf="selectedGym">
-        <h3>Detalls del Gimnàs {{ selectedGym.gymNumber }}</h3>
-        <strong>Tipus:</strong>
-        <div class="pokemon-types">
-          <div class="icon" [ngClass]="selectedGym.gymType.toLowerCase()">
-            <img [src]="typeIconMap[selectedGym.gymType.toLowerCase()]" [alt]="selectedGym.gymType" (error)="onImageError(selectedGym.gymType)" />
+        <button (click)="backToGrid()">Torna a la graella</button>
+      
+        <!-- Si el gimnàs existeix -->
+        <div *ngIf="selectedGym">
+          <h3>Detalls del Gimnàs {{ selectedGym.gymNumber }}</h3>
+          <strong>Tipus:</strong>
+          <div class="pokemon-types">
+            <div class="icon" [ngClass]="selectedGym.gymType.toLowerCase()">
+              <img [src]="typeIconMap[selectedGym.gymType.toLowerCase()]" [alt]="selectedGym.gymType" (error)="onImageError(selectedGym.gymType)" />
+            </div>
           </div>
-        </div>
-        <strong>Pokémon Principal:</strong> {{ selectedGym.acePokemon || 'Sense Pokémon' }} <br />
-        <strong>Pokémons:</strong>
-        <ul>
-          <li *ngFor="let pokemon of selectedGym.pokemons">
-            {{ pokemon.pokemon.name || 'Sense nom' }} - Moviments:
-            <div *ngIf="pokemon.moves && pokemon.moves.length > 0" class="moves-container">
-              <div *ngFor="let move of pokemon.moves" class="move-box" [ngClass]="move.type.toLowerCase()">
-                {{ move.name }}
+      
+          <!-- Disposició dels Pokémon -->
+          <div
+          [ngClass]="{
+            'pokemon-grid-1': selectedGym.pokemons.length === 1,
+            'pokemon-grid-2': selectedGym.pokemons.length === 2 || selectedGym.pokemons.length === 3,
+            'pokemon-grid-4': selectedGym.pokemons.length === 4,
+            'pokemon-grid-5': selectedGym.pokemons.length === 5,
+            'pokemon-grid-6': selectedGym.pokemons.length === 6
+          }"
+          class="pokemon-grid"
+        >
+          <div *ngFor="let pokemon of selectedGym.pokemons" class="pokemon-card" [ngClass]="pokemon.pokemon.types[0].toLowerCase()">
+            <div class="pokemon-content">
+              <img [src]="pokemon.pokemon.imageUrl" [alt]="pokemon.pokemon.name" class="pokemon-image" />
+              <div class="moves-grid">
+                <div *ngFor="let move of pokemon.moves" class="move-box" [ngClass]="move.type.toLowerCase()">
+                  {{ move.name }}
+                </div>
               </div>
             </div>
-            <div *ngIf="!pokemon.moves || pokemon.moves.length === 0">
-              Sense moviments
-            </div>
-          </li>
-        </ul>
-        <button class="delete-gym-button" (click)="deleteGym(selectedGym.gymNumber)">Eliminar Gimnàs</button>
-      </div>
-  
-      <!-- Si el gimnàs no existeix -->
-      <div *ngIf="!selectedGym">
-        <h3>El gimnàs {{ selectedGymNumber }} no existeix.</h3>
-        <button (click)="openAddGymForm()">Crear Gimnàs</button>
-      </div>
+          </div>
+        </div>
     </div>
+      
+        <!-- Si el gimnàs no existeix -->
+        <div *ngIf="!selectedGym">
+          <h3>El gimnàs {{ selectedGymNumber }} no existeix.</h3>
+          <button (click)="openAddGymForm()">Crear Gimnàs</button>
+        </div>
   
     <div *ngIf="showAddGymForm">
       <h3>Afegir un nou gimnàs</h3>

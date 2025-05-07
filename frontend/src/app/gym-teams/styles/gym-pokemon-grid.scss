@@ -1,0 +1,62 @@
+.pokemon-grid {
+    display: grid;
+    gap: 20px;
+  }
+  
+  .pokemon-grid-1 {
+    grid-template-columns: 1fr;
+  }
+  
+  .pokemon-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .pokemon-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .pokemon-grid-5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .pokemon-grid-6 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .pokemon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: var(--type-color, #f0f0f0); /* Substitueix amb el color del tipus */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pokemon-content {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espai entre la imatge i els moviments */
+  }
+  
+  .pokemon-image {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+  }
+  
+  .moves-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Una columna per als moviments */
+    gap: 10px;
+  }
+  
+  .move-box {
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: white;
+    background-color: var(--type-color, #ccc); /* Substitueix amb el color del tipus */
+  }

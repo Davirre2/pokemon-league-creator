@@ -1,78 +1,99 @@
 .move-box {
-    border: 1px solid #ccc;
-    padding: 8px;
-    border-radius: 4px;
-    text-align: center;
-  }
+  border: 1px solid #000; /* Afegim un borde negre */
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  background-color: var(--type-color, #ccc); /* Manté el color de fons del tipus */
+  color: white; /* Color del text */
+  font-weight: bold;
+}
 
   .move-box.bug {
     border-color: #92BC2C;
+    border: 1px solid #000;
   }
   
   .move-box.dark {
     border-color: #595761;
+    border: 1px solid #000;
   }
   
   .move-box.dragon {
     border-color: #0C69C8;
+    border: 1px solid #000;
   }
   
   .move-box.electric {
     border-color: #F2D94E;
+    border: 1px solid #000;
   }
   
   .move-box.fire {
     border-color: #FBA54C;
+    border: 1px solid #000;
   }
   
   .move-box.fairy {
     border-color: #EE90E6;
+    border: 1px solid #000;
   }
   
   .move-box.fighting {
     border-color: #D3425F;
+    border: 1px solid #000;
   }
   
   .move-box.flying {
     border-color: #A1BBEC;
+    border: 1px solid #000;
   }
   
   .move-box.ghost {
     border-color: #5F6DBC;
+    border: 1px solid #000;
   }
   
   .move-box.grass {
     border-color: #5FBD58;
+    border: 1px solid #000;
   }
   
   .move-box.ground {
     border-color: #DA7C4D;
+    border: 1px solid #000;
   }
   
   .move-box.ice {
     border-color: #75D0C1;
+    border: 1px solid #000;
   }
   
   .move-box.normal {
     border-color: #A0A29F;
+    border: 1px solid #000;
   }
   
   .move-box.poison {
     border-color: #B763CF;
+    border: 1px solid #000;
   }
   
   .move-box.psychic {
     border-color: #FA8581;
+    border: 1px solid #000;
   }
   
   .move-box.rock {
     border-color: #C9BB8A;
+    border: 1px solid #000;
   }
   
   .move-box.steel {
     border-color: #5695A3;
+    border: 1px solid #000;
   }
   
   .move-box.water {
     border-color: #539DDF;
+    border: 1px solid #000;
   }
