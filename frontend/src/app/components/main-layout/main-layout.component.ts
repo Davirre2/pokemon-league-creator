@@ -14,4 +14,9 @@ export class MainLayoutComponent {
   navegarAPokemons() {
     this.router.navigate(['/pokemons']);
   }
+
+  navegarAGimnasos(){
+    this.router.navigate(['/gymTeams']);
+  }
+
 }

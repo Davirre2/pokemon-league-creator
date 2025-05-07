@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Pokemon } from '../../models/pokemon.model';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { PokemonService } from '../../services/pokemon.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -43,50 +44,52 @@ export class PokemonListComponent implements OnInit {
     console.error(`Ruta generada: ${this.typeIconMap[type.toLowerCase()]}`);
   }
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: { [key: string]: any; }) => {
       const type = params['type'];
       const generation = params['generation'];
       if (type) {
-        this.fetchPokemonsByType(type);
+        this.loadPokemonsByType(type);
       } else if (generation){
-        this.fetchPokemonsByGeneration(generation);
+        this.loadPokemonsByGeneration(generation);
       } else {
-        this.fetchAllPokemons();
+        this.loadAllPokemons();
       }
     });
   }
 
-  fetchAllPokemons(): void {
-    this.http.get<Pokemon[]>(`${this.apiUrl}/pokemons`).subscribe({
-      next: data => {
+  loadAllPokemons(): void {
+    this.pokemonService.getAllPokemons().subscribe({
+      next: (data: any) => {
         this.pokemons = data;
       },
-      error: err => {
+      error: (err: any) => {
         console.error('Error carregant pokémons', err);
-      }
+      },
     });
   }
-  fetchPokemonsByType(type: string): void {
-    this.http.get<Pokemon[]>(`${this.apiUrl}/pokemons/type=${type}`).subscribe({
-      next: data => {
+
+  loadPokemonsByType(type: string): void {
+    this.pokemonService.getPokemonsByType(type).subscribe({
+      next: (data) => {
         this.pokemons = data;
       },
-      error: err => {
+      error: (err) => {
         console.error('Error carregant pokémons', err);
-      }
+      },
     });
   }
-  fetchPokemonsByGeneration(generation: string): void {
-    this.http.get<Pokemon[]>(`${this.apiUrl}/pokemons/generation=${generation}`).subscribe({
-      next: data => {
+
+  loadPokemonsByGeneration(generation: string): void {
+    this.pokemonService.getPokemonsByGeneration(generation).subscribe({
+      next: (data) => {
         this.pokemons = data;
       },
-      error: err => {
+      error: (err) => {
         console.error('Error carregant pokémons', err);
-      }
+      },
     });
-}
+  }
 }

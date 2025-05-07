@@ -1,0 +1,57 @@
+<div>
+    <h2>Llista de Gimnasos</h2>
+    <ul>
+      <li *ngFor="let team of gymTeams">
+        <strong>ID:</strong> {{ team.id }} <br />
+        <strong>Tipus:</strong> {{ team.type || 'Sense tipus' }} <br />
+        <strong>Pokémon Principal:</strong> {{ team.acePokemon || 'Sense Pokémon' }} <br />
+        <strong>Pokémons:</strong>
+        <ul>
+          <li *ngFor="let pokemon of team.pokemonLearnsets">
+            {{ pokemon.pokemon.name || 'Sense nom' }} - Moviments: {{ pokemon.learnset.join(', ') }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  
+    <button (click)="toggleAddGymForm()">
+      {{ showAddGymForm ? 'Tanca Formulari' : 'Afegir Gimnàs' }}
+    </button>
+  
+    <div *ngIf="showAddGymForm">
+      <h3>Afegir un nou gimnàs</h3>
+      <div *ngIf="step === 1">
+        <h4>Pas 1: Selecciona un tipus</h4>
+        <button *ngFor="let type of availableTypes" (click)="selectType(type)">
+          {{ type }}
+        </button>
+      </div>
+  
+      <div *ngIf="step === 2">
+        <h4>Pas 2: Selecciona un Pokémon</h4>
+        <button *ngFor="let pokemon of availablePokemons" (click)="selectPokemon(pokemon)">
+          {{ pokemon.name }}
+        </button>
+      </div>
+  
+      <div *ngIf="step === 3">
+        <h4>Pas 3: Selecciona fins a 4 moviments</h4>
+        <div>
+          <h5>Moviments disponibles:</h5>
+          <button *ngFor="let move of availableMoves" (click)="selectMove(move)">
+            {{ move }}
+          </button>
+        </div>
+        <div>
+          <h5>Moviments seleccionats:</h5>
+          <ul>
+            <li *ngFor="let move of selectedMoves">
+              {{ move }}
+              <button (click)="removeMove(move)">Eliminar</button>
+            </li>
+          </ul>
+        </div>
+        <button [disabled]="selectedMoves.length < 4" (click)="finalizeGym()">Finalitzar Gimnàs</button>
+      </div>
+    </div>
+  </div>

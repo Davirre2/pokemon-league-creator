@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200/pokemons")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class PokemonController {
 
@@ -57,10 +57,11 @@ public class PokemonController {
 
     @PostMapping(value = "/gymteams")
     public void createGymTeam(){
+        System.out.println("EPP");
         GymTeam gymTeam = GymTeam.builder()
                 .pokemons(List.of())
-                .acePokemon(null)
-                .gymType(null)
+                .acePokemon("Leavanny")
+                .gymType("Bug")
                 .build();
 
         gymTeamRepository.save(gymTeam);

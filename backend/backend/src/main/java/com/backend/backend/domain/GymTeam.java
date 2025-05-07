@@ -21,6 +21,7 @@ import java.util.Set;
 @Builder
 public class GymTeam {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Min(1)
     @Max(18)
