@@ -32,6 +32,7 @@ export class GymTeamsComponent implements OnInit {
   availablePokemons: any[] = []; 
   availableMoves: Move[] = []; 
   acePokemon: string = '';
+  selectedGym: any = null;
 
 
   constructor(private gymTeamService: GymTeamService, private pokemonService: PokemonService) {}
@@ -87,6 +88,17 @@ export class GymTeamsComponent implements OnInit {
     }
   }
 
+  backToGrid(): void {
+    this.selectedGymNumber = null;
+  }
+
+  viewGymDetails(gymNumber: number): void {
+    this.selectedGymNumber = gymNumber;
+    this.selectedGym = this.gymTeams.find(gym => gym.gymNumber === gymNumber);
+  }
+
+    
+
 
   loadAvailablePokemons(): void {
     this.pokemonService.getPokemonsByType(this.selectedType).subscribe({
@@ -139,6 +151,16 @@ export class GymTeamsComponent implements OnInit {
     }
   }
 
+  getGymByNumber(gymNumber: number): GymTeam | undefined {
+    return this.gymTeams.find(gym => gym.gymNumber === gymNumber);
+  }
+
+
+  openAddGymForm(): void {
+    this.showAddGymForm = true;
+    this.selectedGymNumber = null; // Reinicia la selecció
+  }
+
   addAnotherPokemon(): void {
     this.selectedPokemons.push(
       {
@@ -155,6 +177,7 @@ export class GymTeamsComponent implements OnInit {
     this.gymTeamService.deleteGymTeam(num).subscribe({
       next: (response) => {
         console.log('Gimnàs eliminat correctament', response);
+        this.backToGrid();
         this.loadGymTeams();
       },
       error: (err) => {

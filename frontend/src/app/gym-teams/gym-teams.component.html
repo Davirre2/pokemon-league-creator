@@ -1,36 +1,67 @@
 <div>
     <h2>Llista de Gimnasos</h2>
-    <ul>
-        <li *ngFor="let team of gymTeams" [ngClass]="team.gymType.toLowerCase()" class="gym-team-card">
-          <strong>Número:</strong> {{ team.gymNumber }} <br />
-          <strong>Tipus:</strong>
-          <div class="pokemon-types">
-            <div class="icon" [ngClass]="team.gymType.toLowerCase()">
-              <img [src]="typeIconMap[team.gymType.toLowerCase()]" [alt]="team.gymType" (error)="onImageError(team.gymType)" />
-            </div>
-          </div>
-          <strong>Pokémon Principal:</strong> {{ team.acePokemon || 'Sense Pokémon' }} <br />
-          <strong>Pokémons:</strong>
-          <ul>
-            <li *ngFor="let pokemon of team.pokemons">
-              {{ pokemon.pokemon.name || 'Sense nom' }} - Moviments:
-              <div *ngIf="pokemon.moves && pokemon.moves.length > 0" class="moves-container">
-                <div *ngFor="let move of pokemon.moves" class="move-box">
-                  {{ move.name }}
-                </div>
-              </div>
-              <div *ngIf="!pokemon.moves || pokemon.moves.length === 0">
-                Sense moviments
-              </div>
-            </li>
-          </ul>
-          <button class="delete-gym-button" (click)="deleteGym(team.gymNumber)">Eliminar Gimnàs</button>
-        </li>
-      </ul>
   
-    <button (click)="toggleAddGymForm()">
-      {{ showAddGymForm ? 'Tanca Formulari' : 'Afegir Gimnàs' }}
-    </button>
+    <!-- Graella de gimnasos -->
+    <div *ngIf="!selectedGymNumber" class="gym-grid">
+      <div
+        *ngFor="let number of availableGymNumbers"
+        class="gym-cell"
+        (click)="viewGymDetails(number)"
+      >
+      <ng-container *ngIf="getGymByNumber(number); else showNumber">
+        <img
+          [src]="getGymByNumber(number)?.pokemons?.[0]?.pokemon?.imageUrl ?? 'default-image-url.png'"
+          [alt]="getGymByNumber(number)?.acePokemon || 'Sense Pokémon'"
+          class="gym-image"
+          [ngClass]="getGymByNumber(number)?.gymType?.toLowerCase()"
+        />
+      </ng-container>
+
+      <ng-template #showNumber>
+        <div class="gym-number">
+            {{ number }}
+          </div>
+        </ng-template>      
+        </div>
+    </div>
+  
+    <!-- Detalls del gimnàs seleccionat -->
+    <div *ngIf="selectedGymNumber" class="gym-details">
+      <button (click)="backToGrid()">Torna a la graella</button>
+  
+      <!-- Si el gimnàs existeix -->
+      <div *ngIf="selectedGym">
+        <h3>Detalls del Gimnàs {{ selectedGym.gymNumber }}</h3>
+        <strong>Tipus:</strong>
+        <div class="pokemon-types">
+          <div class="icon" [ngClass]="selectedGym.gymType.toLowerCase()">
+            <img [src]="typeIconMap[selectedGym.gymType.toLowerCase()]" [alt]="selectedGym.gymType" (error)="onImageError(selectedGym.gymType)" />
+          </div>
+        </div>
+        <strong>Pokémon Principal:</strong> {{ selectedGym.acePokemon || 'Sense Pokémon' }} <br />
+        <strong>Pokémons:</strong>
+        <ul>
+          <li *ngFor="let pokemon of selectedGym.pokemons">
+            {{ pokemon.pokemon.name || 'Sense nom' }} - Moviments:
+            <div *ngIf="pokemon.moves && pokemon.moves.length > 0" class="moves-container">
+              <div *ngFor="let move of pokemon.moves" class="move-box">
+                {{ move.name }}
+              </div>
+            </div>
+            <div *ngIf="!pokemon.moves || pokemon.moves.length === 0">
+              Sense moviments
+            </div>
+          </li>
+        </ul>
+        <button class="delete-gym-button" (click)="deleteGym(selectedGym.gymNumber)">Eliminar Gimnàs</button>
+      </div>
+  
+      <!-- Si el gimnàs no existeix -->
+      <div *ngIf="!selectedGym">
+        <h3>El gimnàs {{ selectedGymNumber }} no existeix.</h3>
+        <button (click)="openAddGymForm()">Crear Gimnàs</button>
+      </div>
+    </div>
   
     <div *ngIf="showAddGymForm">
       <h3>Afegir un nou gimnàs</h3>
@@ -91,4 +122,3 @@
         <button [disabled]="selectedMoves.length > 4 || selectedMoves.length == 0" (click)="finalizeGym()">Finalitzar Gimnàs</button>
       </div>
     </div>
-  </div>
