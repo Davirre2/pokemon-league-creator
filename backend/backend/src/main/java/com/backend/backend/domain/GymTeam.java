@@ -3,10 +3,9 @@ package com.backend.backend.domain;
 import com.backend.backend.domain.Move;
 import com.backend.backend.domain.Pokemon;
 import com.backend.backend.domain.PokemonLearnset;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +23,10 @@ public class GymTeam {
     @Id
     private Integer id;
     @Min(1)
-    private Integer gymNumber; //Hauré de mirar si ho puc limitar d'alguna manera
+    @Max(18)
+    private Integer gymNumber;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name= "gym_id")
     private List<PokemonLearnset> pokemons;
     private String acePokemon;
     private String gymType;
