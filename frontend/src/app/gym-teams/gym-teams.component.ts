@@ -4,6 +4,7 @@ import { GymTeam } from '../models/gym-team.model';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Move } from '../models/move.models';
 
 @Component({
   selector: 'app-gym-teams',
@@ -14,17 +15,29 @@ import { FormsModule } from '@angular/forms';
 })
 export class GymTeamsComponent implements OnInit {
   gymTeams: GymTeam[] = [];
-  showAddGymForm: boolean = false; // Controla la visibilitat del formulari d'afegir gimnàs
-  step: number = 1; // Controla el pas actual del procés
-  selectedType: string = ''; // Tipus seleccionat
-  selectedPokemon: any = null; // Pokémon seleccionat
-  selectedMoves: string[] = []; // Moviments seleccionats
+  showAddGymForm: boolean = false; 
+  step: number = 1;
+  selectedType: string = ''; 
+  selectedPokemon: any = null; 
+  selectedGymNumber: number = 0;
+  selectedMoves: Move[] = [];
   availableTypes: string[] = [
     'Normal', 'Fire', 'Water', 'Grass', 'Electric', 'Ice', 'Fighting', 'Poison',
     'Ground', 'Flying', 'Psychic', 'Bug', 'Rock', 'Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'
   ];
-  availablePokemons: any[] = []; // Llista de Pokémons disponibles
-  availableMoves: string[] = []; // Llista de moviments disponibles per al Pokémon seleccionat
+  availablePokemons: any[] = []; 
+  availableMoves: string[] = []; 
+  allMoves: Move[] = [
+    { name: 'Thunderbolt', type: 'Electric' },
+    { name: 'Quick Attack', type: 'Normal' },
+    { name: 'Iron Tail', type: 'Steel' },
+    { name: 'Electro Ball', type: 'Electric' },
+    { name: 'Flamethrower', type: 'Fire' },
+    { name: 'Fly', type: 'Flying' },
+    { name: 'Dragon Claw', type: 'Dragon' },
+    { name: 'Heat Wave', type: 'Fire' },
+  ];
+  availableGymNumbers: number[] = Array.from({ length: 18 }, (_, i) => i + 1);
 
   constructor(private gymTeamService: GymTeamService) {}
 
@@ -44,10 +57,23 @@ export class GymTeamsComponent implements OnInit {
   }
 
   startGymCreation(): void {
-    this.step = 1; // Comença al pas 1
+    this.step = 1; 
     this.selectedType = '';
     this.selectedPokemon = null;
     this.selectedMoves = [];
+  }
+
+  selectGymNumber(gymNumber: number): void {
+    this.selectedGymNumber = gymNumber;
+    this.step = 1; // Passa al pas 1 després de seleccionar el número
+  }
+
+  onInputChange(event: Event): void {
+    const inputElement = event.target as HTMLSelectElement;
+    const value = parseInt(inputElement.value, 10); 
+    this.selectedGymNumber = value; 
+    console.log('Gym Number seleccionat:', this.selectedGymNumber);
+    this.step = 1; 
   }
 
   selectType(type: string): void {
@@ -57,13 +83,13 @@ export class GymTeamsComponent implements OnInit {
   }
 
   loadAvailablePokemons(): void {
-    // Aquí pots fer una crida al servei per obtenir els Pokémons disponibles
     // Exemple: this.pokemonService.getAllPokemons().subscribe(...)
     this.availablePokemons = [
-      { name: 'Pikachu', moves: ['Thunderbolt', 'Quick Attack', 'Iron Tail', 'Electro Ball'] },
-      { name: 'Charizard', moves: ['Flamethrower', 'Fly', 'Dragon Claw', 'Heat Wave'] },
-      // Afegeix més Pokémons aquí
-    ];
+      { name: 'Pikachu', moves: this.allMoves },
+      { name: 'Charizard', moves: this.allMoves },
+      { name: 'Bulbasaur', moves: this.allMoves },
+      { name: 'Squirtle', moves: this.allMoves },
+    ]
   }
 
   selectPokemon(pokemon: any): void {
@@ -72,13 +98,13 @@ export class GymTeamsComponent implements OnInit {
     this.step = 3; // Passa al pas 3
   }
 
-  selectMove(move: string): void {
+  selectMove(move: Move): void {
     if (this.selectedMoves.length < 4 && !this.selectedMoves.includes(move)) {
       this.selectedMoves.push(move);
     }
   }
 
-  removeMove(move: string): void {
+  removeMove(move: Move): void {
     this.selectedMoves = this.selectedMoves.filter(m => m !== move);
   }
 
@@ -92,8 +118,8 @@ export class GymTeamsComponent implements OnInit {
   finalizeGym(): void {
     this.step = 1;
     const newGymTeam: GymTeam = {
-      id: 0, // L'ID serà generat pel backend
-      pokemonLearnsets: [
+      gymNumber: this.selectedGymNumber,
+      pokemons: [
         {
           pokemon: this.selectedPokemon,
           learnset: this.selectedMoves,
@@ -102,7 +128,8 @@ export class GymTeamsComponent implements OnInit {
       type: this.selectedType,
       acePokemon: this.selectedPokemon.name,
     };
-    
+    console.log("acePokemon", this.selectedPokemon.name);
+
 
     this.gymTeamService.addGymTeam(newGymTeam).subscribe({
       next: (response) => {

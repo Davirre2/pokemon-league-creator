@@ -40,6 +40,14 @@ CREATE TABLE pokemon_learnset (
     FOREIGN KEY (pokemon_id) REFERENCES pokemon(id) ON DELETE CASCADE
 );
 
+CREATE TABLE pokemon_learnset_moves (
+    learnset_id INTEGER NOT NULL,
+    move_id INTEGER NOT NULL,
+    PRIMARY KEY (learnset_id, move_id),
+    FOREIGN KEY (learnset_id) REFERENCES pokemon_learnset(id) ON DELETE CASCADE,
+    FOREIGN KEY (move_id) REFERENCES move(id) ON DELETE CASCADE
+);
+
 CREATE TABLE pokemon_moves (
     pokemon_id INTEGER NOT NULL,
     move_id INTEGER NOT NULL,

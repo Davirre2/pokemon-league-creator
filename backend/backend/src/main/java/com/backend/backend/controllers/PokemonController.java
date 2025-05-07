@@ -56,14 +56,8 @@ public class PokemonController {
     }
 
     @PostMapping(value = "/gymteams")
-    public void createGymTeam(){
+    public void createGymTeam(@RequestBody GymTeam gymTeam){
         System.out.println("EPP");
-        GymTeam gymTeam = GymTeam.builder()
-                .pokemons(List.of())
-                .acePokemon("Leavanny")
-                .gymType("Bug")
-                .build();
-
         gymTeamRepository.save(gymTeam);
     }
 

@@ -1,8 +1,8 @@
 import { PokemonLearnset } from "./pokemon-learnset.model";
 
 export interface GymTeam{
-    id: number;
-    pokemonLearnsets: PokemonLearnset[];
+    gymNumber: number;
+    pokemons: PokemonLearnset[];
     type: string;
     acePokemon: string;
 }
