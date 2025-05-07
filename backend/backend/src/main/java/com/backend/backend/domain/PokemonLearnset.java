@@ -18,7 +18,7 @@ public class PokemonLearnset {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+    @OneToOne
     private Pokemon pokemon;
 
     @ManyToMany
@@ -28,6 +28,10 @@ public class PokemonLearnset {
             inverseJoinColumns = @JoinColumn(name = "move_id")
     )
     private List<Move> moves;
+
+    public int getPokemonId() {
+        return this.pokemon.getId();
+    }
 
 
     public void setMove(Move move, int index) {

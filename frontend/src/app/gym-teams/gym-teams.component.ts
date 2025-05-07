@@ -80,6 +80,12 @@ export class GymTeamsComponent implements OnInit {
         this.availablePokemons = data.map((pokemon: any) => ({
           name: pokemon.name,
           moves: pokemon.moves,
+          id: pokemon.id,
+          imageUrl: pokemon.imageUrl,
+          types: pokemon.types,
+          abilities: pokemon.abilities,
+          generation: pokemon.generation,
+          dexNumber: pokemon.dexNumber,
         }));
       },
       error: (err) => {
@@ -127,7 +133,7 @@ export class GymTeamsComponent implements OnInit {
       gymType: this.selectedType,
       acePokemon: this.selectedPokemon.name,
     };
-    console.log("acePokemon", this.selectedPokemon.name);
+    console.log("ID", this.selectedPokemon.id);
 
 
     this.gymTeamService.addGymTeam(newGymTeam).subscribe({

@@ -57,7 +57,8 @@ public class PokemonController {
 
     @PostMapping(value = "/gymteams")
     public void createGymTeam(@RequestBody GymTeam gymTeam){
-        System.out.println("EPP");
+        PokemonLearnset pSet = gymTeam.getPokemons().get(0);
+        System.out.println(pSet.getPokemonId());
         gymTeamRepository.save(gymTeam);
     }
 
