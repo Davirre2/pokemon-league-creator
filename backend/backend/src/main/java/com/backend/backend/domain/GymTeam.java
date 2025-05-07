@@ -1,8 +1,6 @@
 package com.backend.backend.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,8 +19,6 @@ public class GymTeam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Min(1)
-    @Max(18)
     private Integer gymNumber;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

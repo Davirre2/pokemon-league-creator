@@ -13,7 +13,7 @@ import { AVAILABLE_TYPES, AVAILABLE_GYM_NUMBERS, typeIconMap } from '../../const
 @Component({
   selector: 'app-gym-teams',
   templateUrl: './gym-teams.component.html',
-  styleUrls: ['./gym-teams.component.scss', '../../type-icons.css', './styles/gym-team-card.scss', 
+  styleUrls: ['./gym-teams.component.scss', '../../type-icons.css', './styles/gym-team-card.scss',
     './styles/gym-image.scss', './styles/gym-grid.scss', './styles/gym-move-box.scss', './styles/gym-move-buttons.scss'
     ,'./styles/gym-pokemon-grid.scss',
   ],
@@ -22,18 +22,18 @@ import { AVAILABLE_TYPES, AVAILABLE_GYM_NUMBERS, typeIconMap } from '../../const
 })
 export class GymTeamsComponent implements OnInit {
   gymTeams: GymTeam[] = [];
-  showAddGymForm: boolean = false; 
+  showAddGymForm: boolean = false;
   step: number = 1;
-  selectedType: string = ''; 
-  selectedPokemon: any = null; 
+  selectedType: string = '';
+  selectedPokemon: any = null;
   selectedGymNumber: number | null = null;
   selectedMoves: Move[] = [];
   selectedPokemons: PokemonLearnset[] = [];
   availableTypes = AVAILABLE_TYPES;
   availableGymNumbers = AVAILABLE_GYM_NUMBERS;
-  typeIconMap = typeIconMap;  
-  availablePokemons: any[] = []; 
-  availableMoves: Move[] = []; 
+  typeIconMap = typeIconMap;
+  availablePokemons: any[] = [];
+  availableMoves: Move[] = [];
   acePokemon: string = '';
   selectedGym: any = null;
 
@@ -58,7 +58,7 @@ export class GymTeamsComponent implements OnInit {
   }
 
   startGymCreation(): void {
-    this.step = 1; 
+    this.step = 1;
     this.selectedType = '';
     this.selectedPokemon = null;
     this.selectedMoves = [];
@@ -72,10 +72,10 @@ export class GymTeamsComponent implements OnInit {
 
   onInputChange(event: Event): void {
     const inputElement = event.target as HTMLSelectElement;
-    const value = parseInt(inputElement.value, 10); 
-    this.selectedGymNumber = value; 
+    const value = parseInt(inputElement.value, 10);
+    this.selectedGymNumber = value;
     console.log('Gym Number seleccionat:', this.selectedGymNumber);
-    this.step = 1; 
+    this.step = 1;
   }
 
   selectType(type: string): void {
@@ -105,7 +105,7 @@ export class GymTeamsComponent implements OnInit {
     console.log('Gym Number seleccionat:', this.selectedGymNumber);
   }
 
-    
+
   loadAvailablePokemons(): void {
     this.pokemonService.getPokemonsByType(this.selectedType).subscribe({
       next: (data) => {
@@ -135,7 +135,7 @@ export class GymTeamsComponent implements OnInit {
     this.selectedPokemon = pokemon;
     this.availableMoves = pokemon.moves.map((move: any) => ({
       name: move.name,
-      type: move.type, 
+      type: move.type,
     }))
     .sort((a: Move, b: Move) => a.name.localeCompare(b.name));
     this.step = 3;
@@ -225,6 +225,7 @@ export class GymTeamsComponent implements OnInit {
     this.selectedGymNumber = null;
     this.selectedType = '';
     this.selectedPokemon = null;
+    this.selectedPokemons = [];
     this.selectedMoves = [];
     this.acePokemon = '';
     this.showAddGymForm = false; // Opcional: Tanca el formulari si cal
