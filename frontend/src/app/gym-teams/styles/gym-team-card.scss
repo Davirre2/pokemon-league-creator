@@ -1,0 +1,80 @@
+.gym-team-card {
+    border: 4px solid transparent; /* El color del marge es definirà per tipus */
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background-color: #ffffff; /* Color de fons neutre */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .gym-team-card.bug {
+    border-color: #92BC2C;
+  }
+  
+  .gym-team-card.dark {
+    border-color: #595761;
+  }
+  
+  .gym-team-card.dragon {
+    border-color: #0C69C8;
+  }
+  
+  .gym-team-card.electric {
+    border-color: #F2D94E;
+  }
+  
+  .gym-team-card.fire {
+    border-color: #FBA54C;
+  }
+  
+  .gym-team-card.fairy {
+    border-color: #EE90E6;
+  }
+  
+  .gym-team-card.fighting {
+    border-color: #D3425F;
+  }
+  
+  .gym-team-card.flying {
+    border-color: #A1BBEC;
+  }
+  
+  .gym-team-card.ghost {
+    border-color: #5F6DBC;
+  }
+  
+  .gym-team-card.grass {
+    border-color: #5FBD58;
+  }
+  
+  .gym-team-card.ground {
+    border-color: #DA7C4D;
+  }
+  
+  .gym-team-card.ice {
+    border-color: #75D0C1;
+  }
+  
+  .gym-team-card.normal {
+    border-color: #A0A29F;
+  }
+  
+  .gym-team-card.poison {
+    border-color: #B763CF;
+  }
+  
+  .gym-team-card.psychic {
+    border-color: #FA8581;
+  }
+  
+  .gym-team-card.rock {
+    border-color: #C9BB8A;
+  }
+  
+  .gym-team-card.steel {
+    border-color: #5695A3;
+  }
+  
+  .gym-team-card.water {
+    border-color: #539DDF;
+  }

@@ -1,6 +1,4 @@
 <div>
-    <h2>Llista de Gimnasos</h2>
-  
     <!-- Graella de gimnasos -->
     <div *ngIf="!selectedGymNumber" class="gym-grid">
       <div
@@ -44,7 +42,7 @@
           <li *ngFor="let pokemon of selectedGym.pokemons">
             {{ pokemon.pokemon.name || 'Sense nom' }} - Moviments:
             <div *ngIf="pokemon.moves && pokemon.moves.length > 0" class="moves-container">
-              <div *ngFor="let move of pokemon.moves" class="move-box">
+              <div *ngFor="let move of pokemon.moves" class="move-box" [ngClass]="move.type.toLowerCase()">
                 {{ move.name }}
               </div>
             </div>
@@ -104,7 +102,9 @@
         <h4>Pas 3: Selecciona fins a 4 moviments</h4>
         <div>
           <h5>Moviments disponibles:</h5>
-          <button *ngFor="let move of availableMoves" (click)="selectMove(move)">
+          <button *ngFor="let move of availableMoves"
+           (click)="selectMove(move)"
+           [ngClass]="move.type.toLowerCase()">
             {{ move.name }}
           </button>
         </div>

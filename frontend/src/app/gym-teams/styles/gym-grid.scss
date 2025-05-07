@@ -1,0 +1,40 @@
+.gym-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 columnes */
+    grid-template-rows: repeat(3, 1fr); /* 3 files */
+    gap: 10px;
+    padding: 20px;
+  }
+  
+  .gym-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    aspect-ratio: 1/1;
+  }
+  
+  .gym-cell:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .gym-details {
+    padding: 20px;
+  }
+
+
+.gym-number{
+    font-size: 1.5em; /* Mida del text */
+    font-weight: bold; /* Text en negreta */
+    color: #666; /* Color del text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Assegura que ocupa tota la cel·la */
+  }

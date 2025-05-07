@@ -13,7 +13,10 @@ import { AVAILABLE_TYPES, AVAILABLE_GYM_NUMBERS, typeIconMap } from '../../const
 @Component({
   selector: 'app-gym-teams',
   templateUrl: './gym-teams.component.html',
-  styleUrls: ['./gym-teams.component.scss', '../../type-icons.css'],
+  styleUrls: ['./gym-teams.component.scss', '../../type-icons.css', './styles/gym-team-card.scss', 
+    './styles/gym-image.scss', './styles/gym-grid.scss', './styles/gym-move-box.scss', './styles/gym-move-buttons.scss'
+    ,
+  ],
   standalone: true,
   imports: [HttpClientModule, CommonModule, FormsModule],
 })
@@ -98,8 +101,6 @@ export class GymTeamsComponent implements OnInit {
   }
 
     
-
-
   loadAvailablePokemons(): void {
     this.pokemonService.getPokemonsByType(this.selectedType).subscribe({
       next: (data) => {
@@ -130,7 +131,8 @@ export class GymTeamsComponent implements OnInit {
     this.availableMoves = pokemon.moves.map((move: any) => ({
       name: move.name,
       type: move.type, 
-    }));
+    }))
+    .sort((a: Move, b: Move) => a.name.localeCompare(b.name));
     this.step = 3;
   }
 
